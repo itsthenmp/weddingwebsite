@@ -21,14 +21,63 @@ spotlight.addEventListener('pointerleave',()=>spotlight.style.setProperty('--spo
 spotlight.addEventListener('pointerup',()=>spotlight.style.setProperty('--spot-opacity','0'));
 spotlight.addEventListener('pointercancel',()=>spotlight.style.setProperty('--spot-opacity','0'));
 
-const comparison=document.querySelector('[data-comparison]');let comparing=false;
-function setCompare(p){p=Math.max(0,Math.min(100,p));comparison.style.setProperty('--position',p+'%');comparison.setAttribute('aria-valuenow',Math.round(p));comparison.setAttribute('aria-valuetext',Math.round(p)+' percent unedited image revealed')}
-function comparePointer(e){const r=comparison.getBoundingClientRect();setCompare((e.clientX-r.left)/r.width*100)}
-comparison.addEventListener('pointerdown',e=>{comparing=true;comparison.setPointerCapture(e.pointerId);comparePointer(e)});
-comparison.addEventListener('pointermove',e=>{if(comparing)comparePointer(e)});
-comparison.addEventListener('pointerup',()=>comparing=false);comparison.addEventListener('pointercancel',()=>comparing=false);
-comparison.addEventListener('keydown',e=>{let n=Number(comparison.getAttribute('aria-valuenow'));if(e.key==='ArrowLeft')n-=5;else if(e.key==='ArrowRight')n+=5;else if(e.key==='Home')n=0;else if(e.key==='End')n=100;else return;e.preventDefault();setCompare(n)});
-function sizeCompare(){comparison.style.setProperty('--comparison-width',comparison.clientWidth+'px')}new ResizeObserver(sizeCompare).observe(comparison);sizeCompare();
+const hero=document.querySelector('.hero');
+function moveHeroSpotlight(e){const r=hero.getBoundingClientRect();hero.style.setProperty('--hero-x',e.clientX-r.left+'px');hero.style.setProperty('--hero-y',e.clientY-r.top+'px');hero.style.setProperty('--hero-spot-opacity','1')}
+hero.addEventListener('pointermove',moveHeroSpotlight);hero.addEventListener('pointerdown',moveHeroSpotlight);
+hero.addEventListener('pointerleave',()=>hero.style.setProperty('--hero-spot-opacity','0'));
+hero.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')hero.style.setProperty('--hero-spot-opacity','0')});
+hero.addEventListener('pointercancel',()=>hero.style.setProperty('--hero-spot-opacity','0'));
+
+const filmStage=document.getElementById('film-stage');
+const filmObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  const iframe=document.createElement('iframe');
+  iframe.title='Memories in Pixels prewedding film';
+  iframe.src='https://www.youtube-nocookie.com/embed/Pp2XzkrV-Eg?autoplay=1&mute=1&playsinline=1&controls=1&rel=0';
+  iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  iframe.referrerPolicy='strict-origin-when-cross-origin';
+  iframe.allowFullscreen=true;
+  filmStage.replaceChildren(iframe);
+  filmObserver.disconnect();
+}),{rootMargin:'200px 0px',threshold:.1});
+filmObserver.observe(filmStage);
+
+const typeMotion=matchMedia('(prefers-reduced-motion: reduce)');
+if(!typeMotion.matches){
+  function animateType(target){
+    if(target.classList.contains('type-ready'))return;
+    const original=target.innerText.replace(/\s+/g,' ').trim();let count=0;
+    const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT);
+    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(node=>{
+      const fragment=document.createDocumentFragment();
+      for(const char of Array.from(node.textContent)){
+        if(/\s/.test(char)){fragment.append(document.createTextNode(char));continue}
+        const span=document.createElement('span');span.className='type-char';span.setAttribute('aria-hidden','true');span.style.setProperty('--char-delay',Math.round(count*22)+'ms');span.textContent=char;fragment.append(span);count++;
+      }
+      node.replaceWith(fragment);
+    });
+    target.setAttribute('aria-label',original);target.classList.add('type-ready');
+    typeObserver.observe(target);
+  }
+  const typeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('type-visible');typeObserver.unobserve(entry.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.12});
+  document.querySelectorAll('main h1,main h2,main h3,main .eyebrow,footer h3').forEach(animateType);
+  window.animateType=animateType;
+}
+
+const whySection=document.querySelector('.why');
+const petalField=whySection.querySelector('.petal-field');
+for(let i=0;i<15;i++){
+  const petal=document.createElement('span');petal.className='petal';
+  petal.style.setProperty('--x',((i*37)%97)+'%');
+  petal.style.setProperty('--size',(9+(i*7)%13)+'px');
+  petal.style.setProperty('--duration',(8+(i*3)%7)+'s');
+  petal.style.setProperty('--delay',(-i*.9)+'s');
+  petal.style.setProperty('--drift',(((i*17)%90)-45)+'px');
+  petalField.append(petal);
+}
+const petalObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('petals-active',entry.isIntersecting)),{threshold:.08});
+petalObserver.observe(whySection);
 
 const aboutCard=document.querySelector('.about-card');
 aboutCard.addEventListener('click',()=>{const flipped=aboutCard.classList.toggle('flipped');aboutCard.setAttribute('aria-pressed',String(flipped));aboutCard.setAttribute('aria-label',flipped?'Flip About Us card back':'Flip About Us card')});
@@ -126,6 +175,7 @@ function initMarquee(content){
   });
   const clone=html=>html.replace('<article class="specialty-card"','<article class="specialty-card marquee-clone" aria-hidden="true"');
   track.innerHTML=clone(cards[2])+cards.join('')+clone(cards[0]);
+  if(window.animateType)track.querySelectorAll('.specialty-card:not(.marquee-clone) h3').forEach(window.animateType);
   track.querySelectorAll('.marquee-clone button,.marquee-clone a').forEach(control=>control.tabIndex=-1);
   const slides=[...track.querySelectorAll('.specialty-card')];
   let active=2,dragStart=null,dragged=false,scrollTimer=0,ignoreScroll=false;
@@ -160,15 +210,37 @@ function initMarquee(content){
 }
 function initGallery(content){
   const grid=document.getElementById('gallery-grid'),filters=[...document.querySelectorAll('[data-filter]')],dialog=document.getElementById('lightbox');
-  const all=Object.entries(content.photos).flatMap(([category,items])=>items.map((item,i)=>({...item,category,index:i})));
-  let visible=all,current=0,touchX=0;
+  const categories=['wedding','prewedding','other'];
+  const grouped=categories.map(category=>content.photos[category].map((item,index)=>({...item,category,index})));
+  const all=Array.from({length:Math.max(...grouped.map(items=>items.length))},(_,i)=>grouped.map(items=>items[i]).filter(Boolean)).flat();
+  let visible=all,current=0,touchX=0,lastWidth=0;
+  function rowPlan(width){
+    const gap=width<600?5:8,target=width<600?230:width<920?270:325,max=width<600?2:width<920?3:4;
+    const dp=Array(visible.length+1).fill(null);dp[visible.length]={cost:0,rows:[]};
+    for(let i=visible.length-1;i>=0;i--){
+      for(let count=1;count<=max&&i+count<=visible.length;count++){
+        const items=visible.slice(i,i+count),sum=items.reduce((total,item)=>total+item.width/item.height,0);
+        const height=(width-gap*(count-1))/sum;
+        const penalty=Math.pow(Math.log(height/target),2)*100+(height>560?80:0)+(height<150?60:0);
+        const cost=penalty+dp[i+count].cost;
+        if(!dp[i]||cost<dp[i].cost)dp[i]={cost,rows:[{items,start:i,height},...dp[i+count].rows]};
+      }
+    }
+    return dp[0].rows;
+  }
+  function layout(){
+    if(!visible.length)return;
+    const width=grid.clientWidth;
+    lastWidth=Math.round(width);
+    grid.innerHTML=rowPlan(width).map(row=>'<div class="gallery-row" style="--row-height:'+Math.round(row.height)+'px">'+row.items.map((item,j)=>'<button class="gallery-frame" style="--ratio:'+(item.width/item.height).toFixed(5)+'" type="button" data-index="'+(row.start+j)+'" aria-label="View '+categoryLabels[item.category]+' photograph '+(item.index+1)+'"><span class="gallery-mount"><span class="gallery-photo"><img src="'+item.full+'" alt="'+categoryLabels[item.category]+' photography by Memories in Pixels" loading="lazy" decoding="async" width="'+item.width+'" height="'+item.height+'"><span class="gallery-caption">'+categoryLabels[item.category]+' · VIEW</span></span></span></button>').join('')+'</div>').join('');
+  }
   function render(filter){
     visible=filter==='all'?all:all.filter(item=>item.category===filter);
-    grid.innerHTML=visible.map((item,i)=>'<button class="gallery-frame" type="button" data-index="'+i+'" aria-label="View '+categoryLabels[item.category]+' photograph '+(item.index+1)+'"><span class="gallery-mount"><span class="gallery-photo"><img src="'+item.src+'" alt="'+categoryLabels[item.category]+' photography by Memories in Pixels" loading="lazy" width="720" height="900"><span class="gallery-caption">'+categoryLabels[item.category]+' · VIEW</span></span></span></button>').join('');
-    grid.querySelectorAll('img').forEach(img=>{img.srcset=img.src.replace('-thumb.webp','-small.webp')+' 360w, '+img.src+' 720w';img.sizes='(max-width:600px) 45vw, (max-width:850px) 48vw, 30vw'});
+    layout();
     filters.forEach(button=>{const active=button.dataset.filter===filter;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active))});
   }
   filters.forEach(button=>button.addEventListener('click',()=>render(button.dataset.filter)));
+  let resizeTimer=0;new ResizeObserver(()=>{if(Math.round(grid.clientWidth)===lastWidth)return;clearTimeout(resizeTimer);resizeTimer=setTimeout(layout,120)}).observe(grid);
   grid.addEventListener('click',e=>{const frame=e.target.closest('.gallery-frame');if(frame)open(Number(frame.dataset.index))});
   const image=dialog.querySelector('img'),category=dialog.querySelector('.lightbox-category'),counter=dialog.querySelector('.lightbox-counter');
   function show(){const item=visible[current];image.src=item.full;image.alt=categoryLabels[item.category]+' photograph by Memories in Pixels';category.textContent=categoryLabels[item.category];counter.textContent=(current+1)+' / '+visible.length}

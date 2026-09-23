@@ -15,37 +15,49 @@
         "src": "assets/images/wedding/wedding-02-thumb.webp",
         "full": "assets/images/wedding/wedding-02-large.webp",
         "sourceId": "1YxXbKq3HLD_JqcnEfA81EsxYsooETU5a",
-        "sourceName": "_NMP8969.jpg"
+        "sourceName": "_NMP8969.jpg",
+        "width": 2200,
+        "height": 1464
       },
       {
         "src": "assets/images/wedding/wedding-03-thumb.webp",
         "full": "assets/images/wedding/wedding-03-large.webp",
-        "sourceId": "1a3p92ugrePAcqkIzsb9pOXKto1uWkasg",
-        "sourceName": "_NMP4561.jpg"
+        "sourceId": null,
+        "sourceName": "_NMP6231.jpg",
+        "width": 1863,
+        "height": 2800
       },
       {
         "src": "assets/images/wedding/wedding-05-thumb.webp",
         "full": "assets/images/wedding/wedding-05-large.webp",
         "sourceId": "1H8IAm7Hg6CZ_Femwj6A16ZaMrmDCNinT",
-        "sourceName": "_NMP6397.jpg"
+        "sourceName": "_NMP6397.jpg",
+        "width": 2200,
+        "height": 1464
       },
       {
         "src": "assets/images/wedding/wedding-08-thumb.webp",
         "full": "assets/images/wedding/wedding-08-large.webp",
         "sourceId": "1A3PTUnTLTokXntjMb7iVvCfyvA2NN-1C",
-        "sourceName": "_DSC5660.jpg"
+        "sourceName": "_DSC5660.jpg",
+        "width": 2200,
+        "height": 1463
       },
       {
         "src": "assets/images/wedding/wedding-10-thumb.webp",
         "full": "assets/images/wedding/wedding-10-large.webp",
         "sourceId": "1YE5--PAcMV0_kHzy8rKZVkt9Wnkzc-q0",
-        "sourceName": "_NMP8235.jpg"
+        "sourceName": "_NMP8235.jpg",
+        "width": 2200,
+        "height": 1464
       },
       {
         "src": "assets/images/wedding/wedding-11-thumb.webp",
         "full": "assets/images/wedding/wedding-11-large.webp",
         "sourceId": "1bChF2BAhRejSvLiX7vG0Xk6UA9UaWki6",
-        "sourceName": "_NMP8204.jpg"
+        "sourceName": "_NMP8204.jpg",
+        "width": 2200,
+        "height": 1464
       }
     ],
     "prewedding": [
@@ -53,37 +65,49 @@
         "src": "assets/images/prewedding/prewedding-00-thumb.webp",
         "full": "assets/images/prewedding/prewedding-00-large.webp",
         "sourceId": "1gzztYR2r4fKAJ-uaMzpBrlYZcT9hKemd",
-        "sourceName": "_NMP7967.jpg"
+        "sourceName": "_NMP7967.jpg",
+        "width": 1863,
+        "height": 2800
       },
       {
         "src": "assets/images/prewedding/prewedding-02-thumb.webp",
         "full": "assets/images/prewedding/prewedding-02-large.webp",
         "sourceId": "1wYzyBr3qdwHcZhoPE4-WJcbJajxRdcK5",
-        "sourceName": "DSC_3730.jpg"
+        "sourceName": "DSC_3730.jpg",
+        "width": 1863,
+        "height": 2800
       },
       {
         "src": "assets/images/prewedding/prewedding-03-thumb.webp",
         "full": "assets/images/prewedding/prewedding-03-large.webp",
-        "sourceId": "1pBN19H1Ga4bnVl13zFdbyQfPAh5gOVCI",
-        "sourceName": "ADP00121.jpg"
+        "sourceId": null,
+        "sourceName": "_NMP6231.jpg",
+        "width": 1867,
+        "height": 2800
       },
       {
         "src": "assets/images/prewedding/prewedding-05-thumb.webp",
         "full": "assets/images/prewedding/prewedding-05-large.webp",
         "sourceId": "1ZU-o-83VrkmOu32U9Qe1NozPLrIzdMql",
-        "sourceName": "DSC_4824.jpg"
+        "sourceName": "DSC_4824.jpg",
+        "width": 1863,
+        "height": 2800
       },
       {
         "src": "assets/images/prewedding/prewedding-06-thumb.webp",
         "full": "assets/images/prewedding/prewedding-06-large.webp",
         "sourceId": "1cl-oUFmsEKqELdYD8JUrdYgGkNFpJd2w",
-        "sourceName": "KOP02691.jpg"
+        "sourceName": "KOP02691.jpg",
+        "width": 2200,
+        "height": 1467
       },
       {
         "src": "assets/images/prewedding/prewedding-07-thumb.webp",
         "full": "assets/images/prewedding/prewedding-07-large.webp",
         "sourceId": "1vjAJ20qtQJ9geoCJNskKm3M7TbUBD4tE",
-        "sourceName": "347556942_565291512470683_7194051283210687585_n.jpg"
+        "sourceName": "347556942_565291512470683_7194051283210687585_n.jpg",
+        "width": 2048,
+        "height": 1367
       }
     ],
     "other": [
@@ -91,37 +115,49 @@
         "src": "assets/images/other-events/other-01-thumb.webp",
         "full": "assets/images/other-events/other-01-large.webp",
         "sourceId": "1lo6iweZPDym4dKFrBXQI31NpxAeFR_cT",
-        "sourceName": "_NMP0244.jpg"
+        "sourceName": "_NMP0244.jpg",
+        "width": 2200,
+        "height": 1464
       },
       {
         "src": "assets/images/other-events/other-04-thumb.webp",
         "full": "assets/images/other-events/other-04-large.webp",
         "sourceId": "1byg_0Elqf5bMttEf1kJP-jYMCTac6qI1",
-        "sourceName": "ADP00295.jpg"
+        "sourceName": "ADP00295.jpg",
+        "width": 1867,
+        "height": 2800
       },
       {
         "src": "assets/images/other-events/other-08-thumb.webp",
         "full": "assets/images/other-events/other-08-large.webp",
         "sourceId": "1IzidR07N8P_QF3I8xdvIS51dabgHxMds",
-        "sourceName": "_NMP1647.jpg"
+        "sourceName": "_NMP1647.jpg",
+        "width": 2200,
+        "height": 1464
       },
       {
         "src": "assets/images/other-events/other-09-thumb.webp",
         "full": "assets/images/other-events/other-09-large.webp",
         "sourceId": "1LQi5kBpVNQZTTLsSAaXOExF98F-e3uPX",
-        "sourceName": "_NMP1384.jpg"
+        "sourceName": "_NMP1384.jpg",
+        "width": 1863,
+        "height": 2800
       },
       {
         "src": "assets/images/other-events/other-12-thumb.webp",
         "full": "assets/images/other-events/other-12-large.webp",
         "sourceId": "1Ipl7oHaW2l69s31Ww47qeDpYKlag4dUa",
-        "sourceName": "KOP07628.jpg"
+        "sourceName": "KOP07628.jpg",
+        "width": 1867,
+        "height": 2800
       },
       {
         "src": "assets/images/other-events/other-13-thumb.webp",
         "full": "assets/images/other-events/other-13-large.webp",
         "sourceId": "135J0Jn343pxZyBb654FswNBoT4dck_5K",
-        "sourceName": "IMG_8412.jpg"
+        "sourceName": "IMG_8412.jpg",
+        "width": 2200,
+        "height": 2750
       }
     ]
   },
