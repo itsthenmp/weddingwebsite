@@ -7,6 +7,23 @@ document.getElementById('year').textContent=new Date().getFullYear();
 const header=document.getElementById('site-header');
 const setHeader=()=>header.classList.toggle('scrolled',scrollY>40);
 addEventListener('scroll',setHeader,{passive:true});setHeader();
+const nextSectionButton=document.getElementById('next-section-button');
+const pageSections=[...document.querySelectorAll('main > section'),document.getElementById('footer')].filter(Boolean);
+const reducedScrollMotion=matchMedia('(prefers-reduced-motion: reduce)');
+function currentSectionIndex(){
+  const readingLine=scrollY+Math.min(innerHeight*.35,220);
+  for(let i=pageSections.length-1;i>=0;i--){
+    if(pageSections[i].getBoundingClientRect().top+scrollY<=readingLine)return i;
+  }
+  return 0;
+}
+function updateNextSectionButton(){nextSectionButton.hidden=currentSectionIndex()>=pageSections.length-1}
+nextSectionButton.addEventListener('click',()=>{
+  const next=pageSections[currentSectionIndex()+1];
+  if(next)scrollTo({top:next.getBoundingClientRect().top+scrollY-78,behavior:reducedScrollMotion.matches?'instant':'smooth'});
+});
+addEventListener('scroll',updateNextSectionButton,{passive:true});
+addEventListener('resize',updateNextSectionButton);updateNextSectionButton();
 const menuButton=document.querySelector('.menu-toggle'),mobileMenu=document.getElementById('mobile-menu');
 function closeMenu(){mobileMenu.hidden=true;menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open menu')}
 menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';mobileMenu.hidden=open;menuButton.setAttribute('aria-expanded',String(!open));menuButton.setAttribute('aria-label',open?'Open menu':'Close menu')});
@@ -32,7 +49,7 @@ const bookingSection=document.querySelector('.booking');
 if(bookingSection&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
   bookingSection.classList.add('book-pending');
   let opened=false;
-  const openBook=()=>{if(opened)return;opened=true;bookingSection.classList.add('book-open');setTimeout(()=>window.animateType?.(bookingSection.querySelector('h2')),650)};
+  const openBook=()=>{if(opened)return;opened=true;bookingSection.classList.add('book-open');setTimeout(()=>window.animateType?.(bookingSection.querySelector('h2')),1250)};
   const bookObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){openBook();bookObserver.disconnect()}},{threshold:.22});
   bookObserver.observe(bookingSection);
   bookingSection.querySelector('[data-book]').addEventListener('focus',openBook);
@@ -181,7 +198,7 @@ function initMarquee(content){
   const cards=content.categories.map((category,i)=>{
     const src=content.photos[category.key][i===0?1:0].src;
     const services=category.services.map(service=>'<li>'+service+'</li>').join('');
-    return '<article class="specialty-card" data-category="'+category.key+'"><span class="specialty-inner"><span class="specialty-face specialty-front"><span class="specialty-top">MEMORIES IN PIXELS <span aria-hidden="true">✦</span> 0'+(i+1)+'</span><span><h3>'+category.title+'<span>'+category.subtitle+'</span></h3></span><ul>'+services+'</ul><span class="specialty-bottom"><span>DISCOVER THE STORY</span><span>↗</span></span></span><span class="specialty-face specialty-back"><img src="'+src+'" alt="" loading="lazy"><span class="specialty-back-content"><strong>'+category.title+'</strong><span>TAP TO FLIP BACK ↶</span></span></span></span><button class="card-flip" type="button" aria-label="Flip '+category.title+' card" aria-pressed="false"></button><a class="card-book" href="'+bookingUrl(BOOKING_MESSAGE)+'" target="_blank" rel="noopener noreferrer" aria-label="Book '+category.title+' photography">BOOK THIS STORY ↗</a></article>';
+    return '<article class="specialty-card" data-category="'+category.key+'"><span class="specialty-inner"><span class="specialty-face specialty-front"><span class="specialty-top">MEMORIES IN PIXELS <span aria-hidden="true">✦</span> 0'+(i+1)+'</span><span><h3>'+category.title+'<span>'+category.subtitle+'</span></h3></span><ul>'+services+'</ul><span class="specialty-bottom"><span>DISCOVER THE STORY</span></span></span><span class="specialty-face specialty-back"><img src="'+src+'" alt="" loading="lazy"><span class="specialty-back-content"><strong>'+category.title+'</strong><span>TAP TO FLIP BACK</span></span></span></span><button class="card-flip" type="button" aria-label="Flip '+category.title+' card" aria-pressed="false"></button><a class="card-book" href="'+bookingUrl(BOOKING_MESSAGE)+'" target="_blank" rel="noopener noreferrer" aria-label="Book '+category.title+' photography">BOOK THIS STORY</a></article>';
   });
   const clone=html=>html.replace('<article class="specialty-card"','<article class="specialty-card marquee-clone" aria-hidden="true"');
   track.innerHTML=clone(cards[2])+cards.join('')+clone(cards[0]);
