@@ -28,6 +28,16 @@ hero.addEventListener('pointerleave',()=>hero.style.setProperty('--hero-spot-opa
 hero.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')hero.style.setProperty('--hero-spot-opacity','0')});
 hero.addEventListener('pointercancel',()=>hero.style.setProperty('--hero-spot-opacity','0'));
 
+const bookingSection=document.querySelector('.booking');
+if(bookingSection&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  bookingSection.classList.add('book-pending');
+  let opened=false;
+  const openBook=()=>{if(opened)return;opened=true;bookingSection.classList.add('book-open');setTimeout(()=>window.animateType?.(bookingSection.querySelector('h2')),650)};
+  const bookObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){openBook();bookObserver.disconnect()}},{threshold:.22});
+  bookObserver.observe(bookingSection);
+  bookingSection.querySelector('[data-book]').addEventListener('focus',openBook);
+}
+
 const filmStage=document.getElementById('film-stage');
 const filmObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
   if(!entry.isIntersecting)return;
@@ -61,7 +71,7 @@ if(!typeMotion.matches){
     typeObserver.observe(target);
   }
   const typeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('type-visible');typeObserver.unobserve(entry.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.12});
-  document.querySelectorAll('main h1,main h2,main .why h3,main .eyebrow,footer h3').forEach(animateType);
+  document.querySelectorAll('main h1,main h2,main .why h3,main .eyebrow,footer h3').forEach(target=>{if(!target.closest('.booking'))animateType(target)});
   window.animateType=animateType;
 }
 
