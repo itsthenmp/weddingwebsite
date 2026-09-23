@@ -73,10 +73,40 @@ musicToggle.addEventListener('click',async()=>{
   }else{music.pause();musicToggle.setAttribute('aria-pressed','false');musicToggle.setAttribute('aria-label','Play original wedding instrumental music');musicState.textContent='PLAY MUSIC'}
 });
 
+const offerDialog=document.getElementById('offer-dialog');
+const offerTrigger=document.getElementById('offer-trigger');
+const offerPercent=document.getElementById('offer-percent');
+const offerCode=document.getElementById('offer-code');
+const offerBook=document.getElementById('offer-book');
+function getBookingOffer(){
+  try{
+    const saved=JSON.parse(sessionStorage.getItem('mip-booking-offer')||'null');
+    if(saved&&[10,15,20].includes(saved.percent)&&/^MIP(10|15|20)-[A-Z0-9]{4}$/.test(saved.code))return saved;
+  }catch{}
+  const bytes=new Uint8Array(5);
+  crypto.getRandomValues(bytes);
+  const percent=[10,15,20][bytes[0]%3];
+  const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const code='MIP'+percent+'-'+Array.from(bytes.slice(1),byte=>alphabet[byte%alphabet.length]).join('');
+  const offer={percent,code};
+  try{sessionStorage.setItem('mip-booking-offer',JSON.stringify(offer))}catch{}
+  return offer;
+}
+offerTrigger.addEventListener('click',()=>{
+  const offer=getBookingOffer();
+  offerPercent.textContent=offer.percent+'%';
+  offerCode.textContent=offer.code;
+  offerBook.href=bookingUrl('I would like to book your services for my event. My offer code is '+offer.code+' ('+offer.percent+'% off). I will send the offer screenshot with my booking.');
+  offerDialog.showModal();
+});
+document.getElementById('offer-close').addEventListener('click',()=>offerDialog.close());
+offerDialog.addEventListener('click',e=>{if(e.target===offerDialog)offerDialog.close()});
+
 document.getElementById('enquiry-form').addEventListener('submit',e=>{
   e.preventDefault();const d=new FormData(e.currentTarget);
   const fields=[['Name','name'],['Phone','phone'],['Email','email'],['Event','event'],['Date','date'],['City','city'],['Venue','venue'],['Message','message']];
   const lines=[BOOKING_MESSAGE,'',...fields.map(([label,key])=>d.get(key)?label+': '+String(d.get(key)).trim():'').filter(Boolean)];
+  try{const offer=JSON.parse(sessionStorage.getItem('mip-booking-offer')||'null');if(offer&&[10,15,20].includes(offer.percent)&&/^MIP(10|15|20)-[A-Z0-9]{4}$/.test(offer.code))lines.push('Offer code: '+offer.code+' ('+offer.percent+'% off; screenshot to follow)')}catch{}
   window.location.assign(bookingUrl(lines.join('\n')));
 });
 
