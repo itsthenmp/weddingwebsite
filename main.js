@@ -77,7 +77,7 @@ document.getElementById('enquiry-form').addEventListener('submit',e=>{
   e.preventDefault();const d=new FormData(e.currentTarget);
   const fields=[['Name','name'],['Phone','phone'],['Email','email'],['Event','event'],['Date','date'],['City','city'],['Venue','venue'],['Message','message']];
   const lines=[BOOKING_MESSAGE,'',...fields.map(([label,key])=>d.get(key)?label+': '+String(d.get(key)).trim():'').filter(Boolean)];
-  window.open(bookingUrl(lines.join('\n')),'_blank','noopener,noreferrer');
+  window.location.assign(bookingUrl(lines.join('\n')));
 });
 
 const categoryLabels={wedding:'Wedding',prewedding:'Prewedding',other:'Other Events'};

@@ -39,3 +39,13 @@
 @media(max-width:600px){.footer{min-height:780px;padding:60px 15px 135px}.footer-scene{background-position:center bottom}.footer-panel{padding:28px 24px}.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 20px}.footer-brand{grid-column:1/-1}.footer-bottom{margin-top:27px}.footer-hud{left:15px;right:15px;bottom:17px;max-width:none;gap:8px}.footer-hud-item{min-width:0;flex:1 1 95px;padding:9px 10px;min-height:56px}.footer-hud-label{font-size:.45rem;letter-spacing:.1em}.footer-hud-value{font-size:.76rem}.footer-music{flex-basis:120px}}
 @media(max-width:380px){.footer{min-height:825px}.footer-hud-item{flex-basis:calc(50% - 4px)}.footer-music{flex-basis:100%}}
 @media(prefers-reduced-motion:reduce){.footer.has-reveal .footer-panel,.footer.has-reveal .footer-panel:hover{opacity:1;transform:none}.footer-music:hover{transform:none}}
+
+/* Slow forward drone reveal over the original palace photograph. */
+.hero-visual{inset:-6%;animation:palace-drone-reveal 17s cubic-bezier(.42,0,.58,1) infinite alternate;transform-origin:51% 58%;will-change:transform}
+@keyframes palace-drone-reveal{
+  0%{transform:translate3d(1.4%,2.5%,0) scale(1.055)}
+  48%{transform:translate3d(.2%,-.2%,0) scale(1.14)}
+  100%{transform:translate3d(-1.8%,-3.5%,0) scale(1.235)}
+}
+@media(max-width:600px){.hero-visual{animation-duration:19s;transform-origin:55% 55%}}
+@media(prefers-reduced-motion:reduce){.hero-visual{animation:none;transform:none;will-change:auto}}
