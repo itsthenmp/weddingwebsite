@@ -22,7 +22,7 @@ spotlight.addEventListener('pointerup',()=>spotlight.style.setProperty('--spot-o
 spotlight.addEventListener('pointercancel',()=>spotlight.style.setProperty('--spot-opacity','0'));
 
 const hero=document.querySelector('.hero');
-function moveHeroSpotlight(e){const r=hero.getBoundingClientRect();hero.style.setProperty('--hero-x',e.clientX-r.left+'px');hero.style.setProperty('--hero-y',e.clientY-r.top+'px');hero.style.setProperty('--hero-spot-opacity','1')}
+function moveHeroSpotlight(e){const r=hero.querySelector('.hero-spotlight').getBoundingClientRect();hero.style.setProperty('--hero-x',e.clientX-r.left+'px');hero.style.setProperty('--hero-y',e.clientY-r.top+'px');hero.style.setProperty('--hero-spot-opacity','1')}
 hero.addEventListener('pointermove',moveHeroSpotlight);hero.addEventListener('pointerdown',moveHeroSpotlight);
 hero.addEventListener('pointerleave',()=>hero.style.setProperty('--hero-spot-opacity','0'));
 hero.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')hero.style.setProperty('--hero-spot-opacity','0')});
@@ -61,7 +61,7 @@ if(!typeMotion.matches){
     typeObserver.observe(target);
   }
   const typeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('type-visible');typeObserver.unobserve(entry.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.12});
-  document.querySelectorAll('main h1,main h2,main h3,main .eyebrow,footer h3').forEach(animateType);
+  document.querySelectorAll('main h1,main h2,main .why h3,main .eyebrow,footer h3').forEach(animateType);
   window.animateType=animateType;
 }
 
@@ -175,7 +175,6 @@ function initMarquee(content){
   });
   const clone=html=>html.replace('<article class="specialty-card"','<article class="specialty-card marquee-clone" aria-hidden="true"');
   track.innerHTML=clone(cards[2])+cards.join('')+clone(cards[0]);
-  if(window.animateType)track.querySelectorAll('.specialty-card:not(.marquee-clone) h3').forEach(window.animateType);
   track.querySelectorAll('.marquee-clone button,.marquee-clone a').forEach(control=>control.tabIndex=-1);
   const slides=[...track.querySelectorAll('.specialty-card')];
   let active=2,dragStart=null,dragged=false,scrollTimer=0,ignoreScroll=false;
