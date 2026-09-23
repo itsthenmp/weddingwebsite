@@ -76,3 +76,14 @@
   .lightbox-prev,.lightbox-next{position:fixed;z-index:5;bottom:calc(env(safe-area-inset-bottom,0px) + 80px)}
   .lightbox-prev{left:20px}.lightbox-next{right:20px}
 }
+
+/* One centered specialty, with 30 percent of either neighboring card in view. */
+.marquee-mask{position:relative;margin:0 calc(-1 * clamp(24px,7.5vw,145px));overflow-x:auto;overflow-y:hidden;mask-image:none;-webkit-mask-image:none;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-inline:contain;cursor:grab}
+.marquee-mask::-webkit-scrollbar{display:none}.marquee-mask.is-dragging{scroll-snap-type:none;scroll-behavior:auto;cursor:grabbing}
+.marquee-track{position:relative;width:max-content;gap:2vw;padding:22px 20vw;transform:none!important;animation:none!important;will-change:auto}
+.specialty-card{flex:0 0 60vw;width:60vw;max-width:none;scroll-snap-align:center;transform:none!important;box-shadow:0 14px 34px rgba(0,0,0,.23);opacity:.6;transition:opacity .35s,border-color .35s,box-shadow .35s}
+.specialty-card.is-active{opacity:1;z-index:2;border-color:rgba(225,188,125,.75);box-shadow:0 21px 50px rgba(0,0,0,.38)}
+.specialty-card:hover,.specialty-card:focus-within{transform:none!important;border-color:var(--gold);box-shadow:0 21px 50px rgba(0,0,0,.4)}
+.specialty-front h3{font-size:clamp(1.85rem,4.2vw,3.9rem);overflow-wrap:anywhere}
+.marquee-controls{margin-top:18px}.marquee-instruction{font-size:.58rem}
+@media(max-width:600px){.marquee-mask{margin:0 -22px}.marquee-track{gap:2vw;padding:15px 20vw}.specialty-card{height:430px}.specialty-face{padding:19px}.specialty-front li{font-size:.69rem;line-height:1.25}.specialty-top,.specialty-bottom{font-size:.48rem}.specialty-front h3{font-size:1.85rem}.specialty-front h3 span{font-size:.51rem}.marquee-instruction{font-size:.47rem;letter-spacing:.1em}}
