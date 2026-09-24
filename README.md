@@ -12,9 +12,9 @@ A one-page static website for Memories in Pixels, a Kolkata-based wedding and pr
 - `assets/images/prewedding/` — prewedding photographs in the same three sizes
 - `assets/images/other-events/` — other-event photographs in the same three sizes
 - `assets/images/brand/`, `assets/images/comparison/`, `assets/images/scenes/` — other page images
-- `assets/audio/` — original instrumental background loop
+- `assets/audio/` — supplied Apache Flute background track
 
-All photographs used by the site are included locally. Their Drive source IDs remain in `content.json`; image categories stay separate. The Walen “Apache Flute” MP3 is not included in this public repository because its published free license does not cover commercial websites or redistribution of the track file.
+All photographs used by the site are included locally. Their Drive source IDs remain in `content.json`; image categories stay separate. The supplied Walen “Apache Flute” MP3 is included at `assets/audio/walen-apache-flute.mp3` for website playback.
 
 ## Run locally
 
@@ -32,6 +32,6 @@ Upload the repository root as a static site. For Netlify or Cloudflare Pages, se
 
 Before making a production site indexable, set its final domain in your hosting provider and add a canonical URL, absolute Open Graph image URL, and sitemap for that domain. The existing page title, description, semantic headings, structured data, and `robots.txt` are host-independent. Do not point a sitemap at a temporary domain.
 
-The site starts with sound off. The Play Music button uses the original instrumental loop in `assets/audio/`. The visitor number is explicitly a display-only value: it starts at 52 and changes to a value from 53 through 120 on refresh.
+The site attempts to start the supplied music on load. Browsers that block autoplay with sound show a tap-to-play prompt, and playback starts after the visitor's first interaction. The visitor number is explicitly a display-only value: it starts at 52 and changes to a value from 53 through 120 on refresh.
 
 The supplied photographs and brand assets are for this website; this repository does not grant others permission to reuse them.
