@@ -137,3 +137,8 @@
 .footer-grid .footer-cta:hover{box-shadow:none;color:#573826}
 
 .socials a svg{display:block;width:19px;height:19px}.socials a[aria-label="WhatsApp"] svg{width:21px;height:21px}
+
+/* Keep hero action labels centered and the booking offer label at button scale. */
+.hero-actions .button,.hero-actions .text-link{justify-content:center;text-align:center}
+.hero .offer-trigger{text-align:center}
+.hero .offer-trigger span:last-child{font-size:inherit}
