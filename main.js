@@ -141,13 +141,31 @@ try{
 }catch{visitorDisplay.textContent='52'}
 
 const music=document.getElementById('site-music'),musicToggle=document.getElementById('music-toggle'),musicState=document.getElementById('music-state');
-music.volume=.38;
-musicToggle.addEventListener('click',async()=>{
-  if(music.paused){
-    try{await music.play();musicToggle.setAttribute('aria-pressed','true');musicToggle.setAttribute('aria-label','Pause original wedding instrumental music');musicState.textContent='PAUSE MUSIC'}
-    catch{musicState.textContent='UNAVAILABLE';musicToggle.setAttribute('aria-label','Music unavailable; try again')}
-  }else{music.pause();musicToggle.setAttribute('aria-pressed','false');musicToggle.setAttribute('aria-label','Play original wedding instrumental music');musicState.textContent='PLAY MUSIC'}
+music.volume=.78;
+let musicManuallyPaused=false;
+function setMusicPlaying(playing){
+  musicToggle.setAttribute('aria-pressed',String(playing));
+  musicToggle.setAttribute('aria-label',(playing?'Pause':'Play')+' Walen Apache Flute background music');
+  musicState.textContent=playing?'PAUSE MUSIC':'PLAY MUSIC';
+}
+async function startMusic(){
+  music.muted=false;
+  try{await music.play();setMusicPlaying(true)}
+  catch{setMusicPlaying(false);musicState.textContent='TAP TO PLAY MUSIC'}
+}
+music.addEventListener('play',()=>setMusicPlaying(true));
+music.addEventListener('pause',()=>setMusicPlaying(false));
+musicToggle.addEventListener('click',()=>{
+  if(music.paused){musicManuallyPaused=false;startMusic()}
+  else{musicManuallyPaused=true;music.pause()}
 });
+function resumeMusicOnInteraction(event){
+  if(musicManuallyPaused||(event.target instanceof Element&&event.target.closest('#music-toggle'))||!music.paused)return;
+  startMusic();
+}
+document.addEventListener('pointerdown',resumeMusicOnInteraction,{capture:true});
+document.addEventListener('keydown',resumeMusicOnInteraction,{capture:true});
+startMusic();
 
 const offerDialog=document.getElementById('offer-dialog');
 const offerTrigger=document.getElementById('offer-trigger');
