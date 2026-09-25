@@ -147,3 +147,14 @@
 @media(max-width:700px){.top-videos .section-heading{margin-bottom:28px}.video-grid{grid-template-columns:1fr;gap:16px}.video-play-mark{width:54px;height:54px;font-size:1.15rem}.video-caption{left:15px;bottom:13px;font-size:.6rem}}
 @media(max-width:350px){.specialty-front h3{font-size:1.55rem}}
 @media(prefers-reduced-motion:reduce){.video-play img{transition:none}.video-play:hover img,.video-play:focus-visible img{transform:none}}
+
+/* Keep small-screen controls readable and clear of the hero footer. */
+@media(max-width:700px){
+  .hero .offer-trigger{font-size:.7rem;letter-spacing:.06em}
+  .booking-content .eyebrow{font-size:.625rem;letter-spacing:.08em}
+  .booking-content .button{font-size:.75rem;letter-spacing:.08em}
+  .gallery-filters button{font-size:.6875rem;letter-spacing:.08em}
+  .footer-hud-label{font-size:.625rem;letter-spacing:.06em}
+  .marquee-instruction{font-size:.625rem;letter-spacing:.06em}
+  .next-section-button{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+}

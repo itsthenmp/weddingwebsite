@@ -134,23 +134,19 @@ function updateLocalTime(){const now=new Date();localTime.textContent=timeFormat
 updateLocalTime();setInterval(updateLocalTime,30000);
 
 const visitorDisplay=document.getElementById('visitor-display');
-let firstVisitorDisplay=true;
-function refreshVisitorDisplay(){
-  if(firstVisitorDisplay){
-    try{
-      const seen=sessionStorage.getItem('mip-visitor-display-seen');
-      visitorDisplay.textContent=seen?String(53+Math.floor(Math.random()*68)):'52';
-      sessionStorage.setItem('mip-visitor-display-seen','1');
-    }catch{visitorDisplay.textContent='52'}
-    firstVisitorDisplay=false;
-  }else{
-    let next;
-    do{next=53+Math.floor(Math.random()*68)}while(next===Number(visitorDisplay.textContent));
-    visitorDisplay.textContent=String(next);
-  }
+const deviceVisitsKey='mip-device-visits';
+function syncDeviceVisits(){
+  try{visitorDisplay.textContent=localStorage.getItem(deviceVisitsKey)||'—'}
+  catch{visitorDisplay.textContent='—'}
 }
-refreshVisitorDisplay();
-setInterval(()=>{updateLocalTime();refreshVisitorDisplay()},60000);
+try{
+  const previous=Number(localStorage.getItem(deviceVisitsKey));
+  const visits=Number.isSafeInteger(previous)&&previous>=0?previous+1:1;
+  localStorage.setItem(deviceVisitsKey,String(visits));
+  visitorDisplay.textContent=String(visits);
+}catch{visitorDisplay.textContent='—'}
+addEventListener('storage',event=>{if(event.key===deviceVisitsKey)syncDeviceVisits()});
+setInterval(syncDeviceVisits,60000);
 
 const music=document.getElementById('site-music'),musicToggle=document.getElementById('music-toggle'),musicState=document.getElementById('music-state');
 music.volume=.78;
@@ -186,10 +182,16 @@ document.querySelector('.video-grid').addEventListener('click',event=>{
   if(!tile)return;
   if(event.target.closest('.video-close')){tile.innerHTML=videoPosters.get(tile);return}
   if(!event.target.closest('.video-play'))return;
+  const id=tile.dataset.videoId;
+  if(id==='aMZZukjbdB4'){
+    musicManuallyPaused=true;
+    music.pause();
+    window.open('https://www.youtube.com/watch?v='+id,'_blank','noopener,noreferrer');
+    return;
+  }
   videoTiles.forEach(other=>{if(other!==tile)other.innerHTML=videoPosters.get(other)});
   musicManuallyPaused=true;
   music.pause();
-  const id=tile.dataset.videoId;
   tile.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="Featured film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><button class="video-close" type="button" aria-label="Close film">×</button>';
 });
 
@@ -222,6 +224,12 @@ offerTrigger.addEventListener('click',()=>{
 document.getElementById('offer-close').addEventListener('click',()=>offerDialog.close());
 offerDialog.addEventListener('click',e=>{if(e.target===offerDialog)offerDialog.close()});
 
+const phoneInput=document.querySelector('#enquiry-form [name="phone"]');
+phoneInput.addEventListener('input',()=>{
+  const value=phoneInput.value.trim();
+  const digitCount=value.replace(/\D/g,'').length;
+  phoneInput.setCustomValidity(!value||(/^[+]?[-().\d\s]+$/.test(value)&&digitCount>=7&&digitCount<=15)?'':'Enter a valid phone number with 7 to 15 digits.');
+});
 document.getElementById('enquiry-form').addEventListener('submit',e=>{
   e.preventDefault();const d=new FormData(e.currentTarget);
   const fields=[['Name','name'],['Phone','phone'],['Email','email'],['Event','event'],['Date','date'],['City','city'],['Venue','venue'],['Message','message']];

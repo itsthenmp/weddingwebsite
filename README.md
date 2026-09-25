@@ -32,6 +32,6 @@ Upload the repository root as a static site. For Netlify or Cloudflare Pages, se
 
 Before making a production site indexable, set its final domain in your hosting provider and add a canonical URL, absolute Open Graph image URL, and sitemap for that domain. The existing page title, description, semantic headings, structured data, and `robots.txt` are host-independent. Do not point a sitemap at a temporary domain.
 
-The site attempts to start the supplied music on load. Browsers that block autoplay with sound show a tap-to-play prompt, and playback starts after the visitor's first interaction. The visitor number is explicitly a display-only value: it starts at 52 and changes to a value from 53 through 120 on refresh.
+The site attempts to start the supplied music on load. Browsers that block autoplay with sound show a tap-to-play prompt, and playback starts after the visitor's first interaction. The visits number counts page loads in this browser using local storage. It is labelled as a device-specific number, not a sitewide visitor count. A sitewide count requires a server-side analytics or counter service.
 
 The supplied photographs and brand assets are for this website; this repository does not grant others permission to reuse them.
