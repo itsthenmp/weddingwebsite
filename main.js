@@ -134,11 +134,23 @@ function updateLocalTime(){const now=new Date();localTime.textContent=timeFormat
 updateLocalTime();setInterval(updateLocalTime,30000);
 
 const visitorDisplay=document.getElementById('visitor-display');
-try{
-  const seen=sessionStorage.getItem('mip-visitor-display-seen');
-  visitorDisplay.textContent=seen?String(53+Math.floor(Math.random()*68)):'52';
-  sessionStorage.setItem('mip-visitor-display-seen','1');
-}catch{visitorDisplay.textContent='52'}
+let firstVisitorDisplay=true;
+function refreshVisitorDisplay(){
+  if(firstVisitorDisplay){
+    try{
+      const seen=sessionStorage.getItem('mip-visitor-display-seen');
+      visitorDisplay.textContent=seen?String(53+Math.floor(Math.random()*68)):'52';
+      sessionStorage.setItem('mip-visitor-display-seen','1');
+    }catch{visitorDisplay.textContent='52'}
+    firstVisitorDisplay=false;
+  }else{
+    let next;
+    do{next=53+Math.floor(Math.random()*68)}while(next===Number(visitorDisplay.textContent));
+    visitorDisplay.textContent=String(next);
+  }
+}
+refreshVisitorDisplay();
+setInterval(()=>{updateLocalTime();refreshVisitorDisplay()},60000);
 
 const music=document.getElementById('site-music'),musicToggle=document.getElementById('music-toggle'),musicState=document.getElementById('music-state');
 music.volume=.78;
@@ -166,6 +178,20 @@ function resumeMusicOnInteraction(event){
 document.addEventListener('pointerdown',resumeMusicOnInteraction,{capture:true});
 document.addEventListener('keydown',resumeMusicOnInteraction,{capture:true});
 startMusic();
+
+const videoTiles=[...document.querySelectorAll('.video-tile')];
+const videoPosters=new Map(videoTiles.map(tile=>[tile,tile.innerHTML]));
+document.querySelector('.video-grid').addEventListener('click',event=>{
+  const tile=event.target.closest('.video-tile');
+  if(!tile)return;
+  if(event.target.closest('.video-close')){tile.innerHTML=videoPosters.get(tile);return}
+  if(!event.target.closest('.video-play'))return;
+  videoTiles.forEach(other=>{if(other!==tile)other.innerHTML=videoPosters.get(other)});
+  musicManuallyPaused=true;
+  music.pause();
+  const id=tile.dataset.videoId;
+  tile.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="Featured film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><button class="video-close" type="button" aria-label="Close film">×</button>';
+});
 
 const offerDialog=document.getElementById('offer-dialog');
 const offerTrigger=document.getElementById('offer-trigger');
@@ -276,7 +302,7 @@ function initGallery(content){
     if(!visible.length)return;
     const width=grid.clientWidth;
     lastWidth=Math.round(width);
-    grid.innerHTML=rowPlan(width).map(row=>'<div class="gallery-row" style="--row-height:'+Math.round(row.height)+'px">'+row.items.map((item,j)=>'<button class="gallery-frame" style="--ratio:'+(item.width/item.height).toFixed(5)+'" type="button" data-index="'+(row.start+j)+'" aria-label="View '+categoryLabels[item.category]+' photograph '+(item.index+1)+'"><span class="gallery-mount"><span class="gallery-photo"><img src="'+item.full+'" alt="'+categoryLabels[item.category]+' photography by Memories in Pixels" loading="lazy" decoding="async" width="'+item.width+'" height="'+item.height+'"><span class="gallery-caption">'+categoryLabels[item.category]+' · VIEW</span></span></span></button>').join('')+'</div>').join('');
+    grid.innerHTML=rowPlan(width).map(row=>'<div class="gallery-row" style="--row-height:'+Math.round(row.height)+'px">'+row.items.map((item,j)=>'<button class="gallery-frame" style="--ratio:'+(item.width/item.height).toFixed(5)+'" type="button" data-index="'+(row.start+j)+'" aria-label="View '+categoryLabels[item.category]+' photograph '+(item.index+1)+'"><span class="gallery-mount"><span class="gallery-photo"><img src="'+item.src+'" alt="'+categoryLabels[item.category]+' photography by Memories in Pixels" loading="lazy" decoding="async" width="'+item.width+'" height="'+item.height+'"><span class="gallery-caption">'+categoryLabels[item.category]+' · VIEW</span></span></span></button>').join('')+'</div>').join('');
   }
   function render(filter){
     visible=filter==='all'?all:all.filter(item=>item.category===filter);

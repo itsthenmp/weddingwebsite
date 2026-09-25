@@ -58,6 +58,86 @@
         "sourceName": "_NMP8204.jpg",
         "width": 2200,
         "height": 1464
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-01-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-01-large.webp",
+        "sourceId": null,
+        "sourceName": "480294323_920667236933107_1037764922053116077_n.jpg",
+        "width": 2048,
+        "height": 1362
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-02-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-02-large.webp",
+        "sourceId": null,
+        "sourceName": "480394169_922836240049540_6914628935918682823_n.jpg",
+        "width": 1366,
+        "height": 2048
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-03-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-03-large.webp",
+        "sourceId": null,
+        "sourceName": "480771362_920667240266440_8099635921373888041_n.jpg",
+        "width": 2048,
+        "height": 1362
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-04-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-04-large.webp",
+        "sourceId": null,
+        "sourceName": "ADP00198.jpg",
+        "width": 2400,
+        "height": 1600
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-05-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-05-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP9557.jpg",
+        "width": 1597,
+        "height": 2400
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-06-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-06-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP4721.jpg",
+        "width": 1597,
+        "height": 2400
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-07-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-07-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP5031.jpg",
+        "width": 2400,
+        "height": 1597
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-08-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-08-large.webp",
+        "sourceId": null,
+        "sourceName": "DSC01945.jpg",
+        "width": 1600,
+        "height": 2400
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-09-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-09-large.webp",
+        "sourceId": null,
+        "sourceName": "DSC01958.jpg",
+        "width": 1600,
+        "height": 2400
+      },
+      {
+        "src": "assets/images/wedding/wedding-new-10-thumb.webp",
+        "full": "assets/images/wedding/wedding-new-10-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP5227.jpg",
+        "width": 2400,
+        "height": 1597
       }
     ],
     "prewedding": [
@@ -108,6 +188,86 @@
         "sourceName": "347556942_565291512470683_7194051283210687585_n.jpg",
         "width": 2048,
         "height": 1367
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-01-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-01-large.webp",
+        "sourceId": null,
+        "sourceName": "475892728_910187687981062_1164247563023805058_n.jpg",
+        "width": 2048,
+        "height": 1363
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-02-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-02-large.webp",
+        "sourceId": null,
+        "sourceName": "480390505_922836583382839_5100907536394932123_n.jpg",
+        "width": 1363,
+        "height": 2048
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-03-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-03-large.webp",
+        "sourceId": null,
+        "sourceName": "480474640_922836490049515_2890754721243491868_n.jpg",
+        "width": 2048,
+        "height": 1362
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-04-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-04-large.webp",
+        "sourceId": null,
+        "sourceName": "480919465_922836380049526_2395075639582457449_n.jpg",
+        "width": 2048,
+        "height": 1363
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-05-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-05-large.webp",
+        "sourceId": null,
+        "sourceName": "480955112_922836326716198_8738537842597608066_n.jpg",
+        "width": 2048,
+        "height": 1363
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-06-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-06-large.webp",
+        "sourceId": null,
+        "sourceName": "481027418_922836713382826_1484445523588340754_n.jpg",
+        "width": 2048,
+        "height": 1363
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-07-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-07-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP4582.jpg",
+        "width": 1920,
+        "height": 2400
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-08-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-08-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP4646.jpg",
+        "width": 1920,
+        "height": 2400
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-09-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-09-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP7061.jpg",
+        "width": 2400,
+        "height": 1350
+      },
+      {
+        "src": "assets/images/prewedding/prewedding-new-10-thumb.webp",
+        "full": "assets/images/prewedding/prewedding-new-10-large.webp",
+        "sourceId": null,
+        "sourceName": "_NMP7242.jpg",
+        "width": 1597,
+        "height": 2400
       }
     ],
     "other": [
@@ -158,6 +318,22 @@
         "sourceName": "IMG_8412.jpg",
         "width": 2200,
         "height": 2750
+      },
+      {
+        "src": "assets/images/other-events/other-new-01-thumb.webp",
+        "full": "assets/images/other-events/other-new-01-large.webp",
+        "sourceId": null,
+        "sourceName": "475753568_910201757979655_2999566585964843143_n.jpg",
+        "width": 2048,
+        "height": 1365
+      },
+      {
+        "src": "assets/images/other-events/other-new-02-thumb.webp",
+        "full": "assets/images/other-events/other-new-02-large.webp",
+        "sourceId": null,
+        "sourceName": "476230361_914714107528420_69266246235788280_n.jpg",
+        "width": 2048,
+        "height": 1363
       }
     ]
   },
