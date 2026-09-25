@@ -281,7 +281,11 @@ function initMarquee(content){
 function initGallery(content){
   const grid=document.getElementById('gallery-grid'),filters=[...document.querySelectorAll('[data-filter]')],dialog=document.getElementById('lightbox');
   const categories=['wedding','prewedding','other'];
-  const grouped=categories.map(category=>content.photos[category].map((item,index)=>({...item,category,index})));
+  const grouped=categories.map(category=>{
+    const items=content.photos[category].map((item,index)=>({...item,category,index}));
+    for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]]}
+    return items;
+  });
   const all=Array.from({length:Math.max(...grouped.map(items=>items.length))},(_,i)=>grouped.map(items=>items[i]).filter(Boolean)).flat();
   let visible=all,current=0,touchX=0,lastWidth=0;
   function rowPlan(width){
