@@ -98,7 +98,7 @@ for(let i=0;i<15;i++){
   const petal=document.createElement('span');petal.className='petal';
   petal.style.setProperty('--x',((i*37)%97)+'%');
   petal.style.setProperty('--size',(9+(i*7)%13)+'px');
-  petal.style.setProperty('--duration',(11+(i*3)%7)+'s');
+  petal.style.setProperty('--duration',(8+(i*3)%7)+'s');
   petal.style.setProperty('--delay',(-i*.9)+'s');
   petal.style.setProperty('--drift',(((i*17)%90)-45)+'px');
   petalField.append(petal);
@@ -232,9 +232,8 @@ phoneInput.addEventListener('input',()=>{
 });
 document.getElementById('enquiry-form').addEventListener('submit',e=>{
   e.preventDefault();const d=new FormData(e.currentTarget);
-  const fullName=[d.get('firstName'),d.get('surname')].map(value=>String(value||'').trim()).filter(Boolean).join(' ');
-  const fields=[['Phone','phone'],['Email','email'],['Event','event'],['Date','date'],['City','city'],['Venue','venue'],['Message','message']];
-  const lines=[BOOKING_MESSAGE,'','Name: '+fullName,...fields.map(([label,key])=>d.get(key)?label+': '+String(d.get(key)).trim():'').filter(Boolean)];
+  const fields=[['Name','name'],['Phone','phone'],['Email','email'],['Event','event'],['Date','date'],['City','city'],['Venue','venue'],['Message','message']];
+  const lines=[BOOKING_MESSAGE,'',...fields.map(([label,key])=>d.get(key)?label+': '+String(d.get(key)).trim():'').filter(Boolean)];
   try{const offer=JSON.parse(sessionStorage.getItem('mip-booking-offer')||'null');if(offer&&[10,15,20].includes(offer.percent)&&/^MIP(10|15|20)-[A-Z0-9]{4}$/.test(offer.code))lines.push('Offer code: '+offer.code+' ('+offer.percent+'% off; screenshot to follow)')}catch{}
   window.location.assign(bookingUrl(lines.join('\n')));
 });
